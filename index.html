@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Sodo</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#1A1038; --night2:#2E1A5C; --gold:#FFD27A; --glow:#FFB347;
+  --lilac:#C9A7FF; --cream:#FFF4DE;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{
+  background:linear-gradient(180deg,var(--night) 0%,var(--night2) 60%,#5B2E7A 100%) fixed;
+  color:var(--cream);font-family:"Quicksand",system-ui,sans-serif;font-size:18px;line-height:1.7;
+  text-align:center;overflow-x:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.script{font-family:"Dancing Script",cursive;font-weight:700;color:var(--gold)}
+button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:14px 34px;cursor:pointer;
+  background:linear-gradient(135deg,var(--gold),var(--glow));color:#3A1F00;box-shadow:0 0 24px rgba(255,190,90,.55)}
+button:active{transform:scale(.96)}
+:focus-visible{outline:3px solid var(--lilac);outline-offset:3px}
+
+/* ---------- sky + lanterns ---------- */
+#sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.lantern{position:absolute;bottom:-90px;width:var(--s);height:calc(var(--s)*1.3);border-radius:45% 45% 38% 38%;
+  background:radial-gradient(circle at 50% 70%,#FFF1B8,var(--glow) 70%);
+  box-shadow:0 0 22px 6px rgba(255,180,70,.6);opacity:.9;
+  animation:rise var(--d) linear forwards,sway 4s ease-in-out infinite alternate}
+.lantern::after{content:"";position:absolute;left:20%;right:20%;bottom:-6px;height:6px;border-radius:3px;background:#8A4B12}
+.teddy{position:absolute;bottom:-60px;font-size:var(--s);animation:rise var(--d) linear forwards,sway 5s ease-in-out infinite alternate;opacity:.9;filter:drop-shadow(0 0 10px rgba(255,200,120,.6))}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:twinkle 3s ease-in-out infinite}
+@keyframes rise{to{transform:translateY(-125vh)}}
+@keyframes sway{from{margin-left:-14px}to{margin-left:14px}}
+@keyframes twinkle{50%{opacity:.15}}
+
+/* ---------- intro ---------- */
+#intro{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:linear-gradient(180deg,var(--night),var(--night2));padding:24px;transition:opacity 1s}
+#intro.hide{opacity:0;pointer-events:none}
+#intro h1{font-size:4rem}
+.intro-lantern{width:70px;height:92px;border-radius:45% 45% 38% 38%;background:radial-gradient(circle at 50% 70%,#FFF1B8,var(--glow));
+  box-shadow:0 0 50px 14px rgba(255,180,70,.65);animation:float 3s ease-in-out infinite alternate}
+@keyframes float{to{transform:translateY(-16px)}}
+
+/* ---------- main ---------- */
+main{position:relative;z-index:2;max-width:480px;margin:0 auto;padding:0 22px 60px}
+.hero{padding:46px 0 30px}
+.tower{position:relative;width:min(250px,68vw);margin:0 auto 18px}
+.glow{position:absolute;inset:-26px;border-radius:50% 50% 46% 46%;
+  background:radial-gradient(circle,rgba(255,190,90,.7),transparent 68%);animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.12);opacity:.7}}
+.frame{position:relative;aspect-ratio:3/4;border-radius:999px 999px 24px 24px;overflow:hidden;
+  border:5px solid var(--gold);box-shadow:0 0 0 5px rgba(255,210,122,.25),0 0 40px rgba(255,180,70,.6);
+  background:linear-gradient(160deg,#3b2470,#7a4a9c)}
+.frame::before{content:"🧸";position:absolute;inset:0;display:grid;place-items:center;font-size:5rem}
+.frame img{position:relative;width:100%;height:100%;object-fit:cover;z-index:1}
+.name{font-size:3.4rem;line-height:1.1;text-shadow:0 0 18px rgba(255,190,90,.8)}
+.typed{min-height:4.5em;margin-top:12px;font-size:1.15rem;color:var(--cream)}
+.typed::after{content:"|";animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.cards{display:grid;gap:16px;margin:20px 0 40px}
+.card{background:rgba(255,255,255,.08);border:1px solid rgba(255,210,122,.35);border-radius:22px;padding:22px 18px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card .icon{display:block;font-size:2rem;margin-bottom:6px}
+.finale h2{font-size:2.4rem;margin-bottom:16px}
+.wish{margin-top:22px;font-size:1.3rem;color:var(--gold)}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.lantern,.teddy,.glow,.intro-lantern{animation:none}.reveal{transition:none}}
+
+/* ---------- gallery (zig-zag) ---------- */
+.gallery{padding:10px 0 30px}
+.gallery h2{font-size:2.4rem}
+.gsub{color:var(--lilac);margin-bottom:22px}
+.timeline{position:relative;padding:10px 0}
+.timeline::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;transform:translateX(-50%);border-radius:3px;
+  background:linear-gradient(180deg,transparent,var(--gold) 12%,var(--glow) 88%,transparent);box-shadow:0 0 12px rgba(255,190,90,.7)}
+.moment{position:relative;display:flex;margin:26px 0}
+.moment.left{justify-content:flex-start}
+.moment.right{justify-content:flex-end}
+.moment::after{content:"";position:absolute;top:50%;left:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+  background:radial-gradient(circle,#fff,var(--gold));box-shadow:0 0 16px 4px rgba(255,190,90,.9)}
+.float{width:72%;animation:bob 5s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(-6px)}to{transform:translateY(8px)}}
+.polaroid{position:relative;background:var(--cream);color:#4a2c4f;padding:10px 10px 6px;border-radius:14px;cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 26px rgba(255,190,90,.45);
+  opacity:0;transition:opacity .9s ease,transform 1.1s cubic-bezier(.2,1.4,.4,1)}
+.moment.left .polaroid{transform:translateX(-90px) rotate(-16deg) scale(.7)}
+.moment.right .polaroid{transform:translateX(90px) rotate(16deg) scale(.7)}
+.moment.in.left .polaroid{opacity:1;transform:rotate(-4deg)}
+.moment.in.right .polaroid{opacity:1;transform:rotate(4deg)}
+.ph{aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:linear-gradient(160deg,#3b2470,#7a4a9c);display:grid;place-items:center;position:relative}
+.ph::before{content:"🧸";position:absolute;font-size:3rem}
+.ph img{position:relative;width:100%;height:100%;object-fit:cover}
+.polaroid figcaption{font-size:1.35rem;line-height:1.3;padding:8px 4px 4px;color:#7a2f5d}
+.pin{position:absolute;top:-16px;font-size:1.7rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
+.moment.left .pin{right:-8px}
+.moment.right .pin{left:-8px}
+.polaroid.pop{animation:pop .6s ease}
+@keyframes pop{40%{transform:scale(1.08) rotate(0)}100%{}}
+@media (prefers-reduced-motion:reduce){.float{animation:none}.polaroid{transition:none}}
+
+</style>
+</head>
+<body>
+
+<!-- 🎵 the song file name is set in the SETTINGS block at the bottom of this file -->
+<audio id="song" loop preload="auto"></audio>
+
+<div id="sky" aria-hidden="true"></div>
+
+<!-- Opening screen: the tap is needed so the phone allows the song to play -->
+<div id="intro">
+  <div class="intro-lantern"></div>
+  <h1 class="script">Sodo,</h1>
+  <p>there's something glowing for you</p>
+  <button id="openBtn">Tap to open</button>
+</div>
+
+<main id="main" hidden>
+
+  <section class="hero">
+    <!-- 📷 her profile photo file name is set in the SETTINGS block at the bottom of this file -->
+    <div class="tower">
+      <div class="glow"></div>
+      <div class="frame"><img id="profile" alt="Sodo" onerror="this.style.display='none'"></div>
+    </div>
+    <h2 class="script name">Sodo</h2>
+    <p class="typed" id="typed"></p>
+  </section>
+
+  <section class="cards">
+    <div class="card reveal"><span class="icon">🏮</span><p>Out of every light in the sky, you're the one I'd follow home.</p></div>
+    <div class="card reveal"><span class="icon">🧸</span><p>You're the warmest hug I never knew I was waiting for.</p></div>
+    <div class="card reveal"><span class="icon">✨</span><p>Rapunzel waited years to see the lights. I just had to meet you.</p></div>
+    <div class="card reveal"><span class="icon">💛</span><p>Whatever tomorrow looks like, I want you in it.</p></div>
+  </section>
+
+  <section class="gallery">
+    <h2 class="script">Our little moments</h2>
+    <p class="gsub">every light has a story</p>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <section class="finale reveal">
+    <h2 class="script">Make a wish, Sodo</h2>
+    <button id="wishBtn">Release the lanterns</button>
+    <p id="wishMsg" class="wish" hidden>I'm so lucky to be yours. 🧸💛</p>
+  </section>
+
+</main>
+
+<script>
+/* =====================================================
+   ⭐ SETTINGS — put your file names here ⭐
+   All the files go in the SAME place as index.html
+   (no folders). Names are case-sensitive on GitHub:
+   photo.jpg is NOT the same as Photo.jpg or photo.JPG
+   ===================================================== */
+const PROFILE_PHOTO = "sandy.png.jpg";   // 📷 her picture in the golden frame
+const SONG_FILE     = "ssstik.io_1792623451629.mp3";    // 🎵 the song that plays when she taps
+
+// 🖼️ your photos together (they alternate left / right)
+// change "p1.jpg" to your file name, and the text under it
+const PHOTOS = [
+  { src: "1.jpg", text: "You in red, me just staring" },
+  { src: "2.jpg", text: "My princess and her throne" },
+  { src: "3.jpg", text: "That smile, every single time" },
+  { src: "4.jpg", text: "Sunshine looks better with you" },
+  { src: "5.jpg", text: "Being silly under our sky" }
+];
+/* ===================== END SETTINGS ===================== */
+
+document.getElementById("profile").src = PROFILE_PHOTO;
+document.getElementById("song").src = SONG_FILE;
+
+// ✏️ EDIT THESE: the lines that get typed under her name
+const LINES = [
+  "Some people light up a room.",
+  "You light up my whole sky.",
+  "This one's for you, Sodo. 💛"
+];
+
+const sky = document.getElementById("sky");
+const song = document.getElementById("song");
+
+// twinkling stars
+for (let i = 0; i < 40; i++) {
+  const s = document.createElement("i");
+  s.className = "star";
+  s.style.top = Math.random() * 100 + "%";
+  s.style.left = Math.random() * 100 + "%";
+  s.style.animationDelay = Math.random() * 3 + "s";
+  sky.appendChild(s);
+}
+
+// one floating lantern (or teddy)
+function launch(teddy) {
+  const el = document.createElement("div");
+  const size = teddy ? 30 + Math.random() * 20 : 22 + Math.random() * 26;
+  el.className = teddy ? "teddy" : "lantern";
+  if (teddy) el.textContent = "🧸";
+  el.style.setProperty("--s", size + "px");
+  el.style.setProperty("--d", 11 + Math.random() * 9 + "s");
+  el.style.left = Math.random() * 94 + "%";
+  sky.appendChild(el);
+  el.addEventListener("animationend", (e) => { if (e.animationName === "rise") el.remove(); });
+}
+
+// ambient: a lantern every moment, a teddy now and then
+setInterval(() => launch(false), 1200);
+setInterval(() => launch(true), 5000);
+for (let i = 0; i < 6; i++) setTimeout(() => launch(false), i * 250);
+
+
+// build the zig-zag gallery
+const tl = document.getElementById("timeline");
+PHOTOS.forEach((p, i) => {
+  const side = i % 2 === 0 ? "left" : "right";
+  const m = document.createElement("div");
+  m.className = "moment " + side;
+  m.innerHTML =
+    '<div class="float" style="animation-delay:' + (i * 0.7) + 's">' +
+      '<figure class="polaroid">' +
+        '<div class="ph"><img src="' + p.src + '" alt="" loading="lazy" onerror="this.style.display=\'none\'"></div>' +
+        '<figcaption class="script">' + p.text + '</figcaption>' +
+        '<span class="pin">🧸</span>' +
+      '</figure>' +
+    '</div>';
+  m.querySelector(".polaroid").addEventListener("click", function () {
+    this.classList.remove("pop"); void this.offsetWidth; this.classList.add("pop");
+    for (let k = 0; k < 4; k++) setTimeout(() => launch(k % 2 === 0), k * 120);
+  });
+  tl.appendChild(m);
+});
+
+// typewriter
+function typeLines() {
+  const box = document.getElementById("typed");
+  let line = 0, ch = 0, out = "";
+  (function step() {
+    if (line >= LINES.length) return;
+    out += LINES[line][ch++] || "";
+    box.textContent = out;
+    if (ch >= LINES[line].length) { line++; ch = 0; out += "\n"; box.style.whiteSpace = "pre-line"; setTimeout(step, 700); }
+    else setTimeout(step, 55);
+  })();
+}
+
+// scroll reveal
+const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")), { threshold: 0.2 });
+
+// open button: starts the song (phones only allow sound after a tap)
+document.getElementById("openBtn").addEventListener("click", () => {
+  song.volume = 0.8;
+  song.play().catch(() => {});
+  document.getElementById("intro").classList.add("hide");
+  document.getElementById("main").hidden = false;
+  document.querySelectorAll(".reveal, .moment").forEach((el) => io.observe(el));
+  setTimeout(typeLines, 600);
+  setTimeout(() => document.getElementById("intro").remove(), 1100);
+});
+
+// final wish
+document.getElementById("wishBtn").addEventListener("click", () => {
+  for (let i = 0; i < 24; i++) setTimeout(() => launch(i % 5 === 0), i * 120);
+  document.getElementById("wishMsg").hidden = false;
+});
+
+</script>
+</body>
+</html>
